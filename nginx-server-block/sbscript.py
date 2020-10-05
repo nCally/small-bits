@@ -19,12 +19,14 @@ try:
 
     # 2.
     # assign ownership of the directory with the $USER environment variable
-    user = os.getenv("USER")
-    os.chown(mkdir, pwd.getpwnam(user).pw_uid, grp.getgrnam(user).gr_gid)
+    #user = os.getenv("USER")
+    #os.chown(mkdir, pwd.getpwnam(user).pw_uid, grp.getgrnam(user).gr_gid)
+    os.system('sudo chown -R $USER:$USER ' + mkdir)
 
     # 3.
     # add permission
-    os.chmod(basedir + domain_name, 0o755)  # add 0o755 for permission
+    #os.chmod(basedir + domain_name, 0o755)  # add 0o755 for permission
+    os.system('sudo chmod -R 755 ' + basedir + domain_name)
 
     # 4.
     # copy the index.html from this current directory to the /var/www/XX/html newly created
@@ -38,10 +40,10 @@ try:
     try:
         # 6
         # create site-available file
-
-        server_file = open(sites_available_dir + "/" + domain_name, "x")
+        print('rechs here')
+        server_file = open(os.getcwd() + "/" + domain_name, "x")
         port = ''  # if there is need for it, in the case of a node app
-
+        print('creates the file')
 # 7
 # choose the template file to use to create the server file
         if choice == "1":
@@ -58,7 +60,7 @@ try:
 # 8
 # open the template that was choosen in step 7
         template_file = open(template, "rt")
-
+        print('got here')
 # 9
 # map through the lines in the template file to replace the domain name and port number
         for line in template_file:
@@ -69,6 +71,9 @@ try:
 # close the server file and template file
         server_file.close()
         template_file.close()
+
+        os.system('sudo mv ' + domain_name + ' /etc/nginx/sites-available')
+        print('copied successfully')
 
 # 11
 # link the site available file and the site enabled nginx
