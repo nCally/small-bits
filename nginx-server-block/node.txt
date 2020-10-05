@@ -1,0 +1,13 @@
+server {
+  listen 80;
+  listen [::]:80;
+
+  root /var/www/$DOMAIN/html;
+  index index.html index.htm;
+
+  server_name $DOMAIN www.$DOMAIN;
+
+  location / {
+    proxy_pass http://localhost:$PORT;
+  }
+}
