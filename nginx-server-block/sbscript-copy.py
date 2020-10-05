@@ -4,7 +4,7 @@ import grp
 import sys
 import shutil
 
-basedir = "/var/www/"
+basedir = "/home/cally/dev/task/"
 sites_available_dir = "/etc/nginx/sites-available/"
 
 domain_name = input("domain name: ")
@@ -15,8 +15,10 @@ try:
     # 1.
     # make a new directory in /var/www
     # os.makedirs(mkdir)
-    os.system('sudo mkdir -p ' + mkdir)
+    print(mkdir)
+    os.system('mkdir -p ' + mkdir)
 
+    print("come to send phase")
     # 2.
     # assign ownership of the directory with the $USER environment variable
     user = os.getenv("USER")
@@ -39,7 +41,7 @@ try:
         # 6
         # create site-available file
 
-        server_file = open(sites_available_dir + "/" + domain_name, "x")
+        server_file = open(mkdir + "/" + domain_name, "x")
         port = ''  # if there is need for it, in the case of a node app
 
 # 7
@@ -72,20 +74,21 @@ try:
 
 # 11
 # link the site available file and the site enabled nginx
-        os.system('sudo ln -s /etc/nginx/sites-available/' +
-                  domain_name + " /etc/nginx/sites-enabled/")
+        # os.system('sudo ln -s /etc/nginx/sites-available/' +
+        # domain_name + " /etc/nginx/sites-enabled/")
 
 # 12
 # test the linking and other settings
-        os.system('sudo nginx -t')
+        #os.system('sudo nginx -t')
 
 # 13
 # restart nginx
-        os.system('sudo systemctl restart nginx')
+        #os.system('sudo systemctl restart nginx')
 
     except FileExistsError:
         print("This file already exists")
 
 
 except OSError:
+    print(OSError.characters_written)
     print("failed to make directory")
