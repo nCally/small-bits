@@ -1,0 +1,7 @@
+"As the days go by, I'll be keeping vim configurations I pick up
+
+nnoremap ss :NERDTreeToggle<CR>
+syntax on
+set number
+set tabstop=4
+set autoindent
