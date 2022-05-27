@@ -1,7 +1,89 @@
-"As the days go by, I'll be keeping vim configurations I pick up
 
+"mappings
+
+inoremap jk <ESC>
 nnoremap ss :NERDTreeToggle<CR>
+:autocmd InsertEnter * set cul
+:autocmd InsertLeave * set nocul
+let NERDTreeShowHidden=1
+let g:NERDTreeHijackNetrw=0 "makes plugin to show when 'vim .' command
+
 syntax on
+
+"settings
+
 set number
-set tabstop=4
+set relativenumber
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set smarttab
 set autoindent
+set encoding=utf-8
+set mouse=a
+
+
+call plug#begin('~/.vim/plugged')
+
+"Plug 'sbdchd/neoformat'
+Plug 'dense-analysis/ale'
+
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+Plug 'sainnhe/everforest'
+Plug 'morhetz/gruvbox'
+Plug 'embark-theme/vim'
+Plug 'adrian5/oceanic-next-vim'
+Plug 'robre/maracuja.vim'
+Plug 'sickill/vim-monokai'
+Plug 'YorickPeterse/vim-paper'
+Plug 'joshdick/onedark.vim'
+
+Plug 'ap/vim-css-color'
+
+Plug 'leafgarland/typescript-vim'
+
+Plug 'peitalin/vim-jsx-typescript'
+
+Plug 'maxmellon/vim-jsx-pretty'
+
+Plug 'tpope/vim-fugitive'
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+let g:coc_global_extensions = [
+  \ 'coc-tsserver'
+  \ ]
+
+call plug#end()
+
+set background=dark
+"colorscheme everforest
+"colorscheme monokai
+"colorscheme paper
+"colorscheme onedark
+colorscheme gruvbox
+"colorscheme maracuja
+"colorscheme oceanicnext
+
+"let g:airline_theme='gruvbox'
+"let g:airline_theme='maracuja'
+let g:airline_theme='oceanicnext'
+"let g:airline_theme='everforest'
+"let g:airline_theme='embark'
+let g:airline#extensions#ale#enabled = 1
+
+let g:ale_fixers = {
+\	'javascript': ['prettier', 'eslint'],
+\	'typescript': ['prettier', 'eslint'],
+\	'css': ['prettier'],
+\}
+let g:ale_linters_explicit=1
+let g:ale_linters = {}
+let g:ale_linters.typescript = ['eslint', 'tsserver', 'prettier']
+let g:ale_lint_on_save=1
+let g:ale_fix_on_save=1
+
+
+"let g:neoformat_try_node_exe=1
+"autocmd BufWritePre *.js,*.ts,*.jsx,*.tsx,*.css Neoformat
