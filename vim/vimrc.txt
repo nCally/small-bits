@@ -1,12 +1,26 @@
-
+" Just for note
+" - the default <leader> key for my setup is Backslash \
 "mappings
 
 inoremap jk <ESC>
-nnoremap ss :NERDTreeToggle<CR>
+ " nnoremap ss :NERDTreeToggle<CR>
 :autocmd InsertEnter * set cul
 :autocmd InsertLeave * set nocul
-let NERDTreeShowHidden=1
-let g:NERDTreeHijackNetrw=0 "makes plugin to show when 'vim .' command
+" let NERDTreeShowHidden=1
+let g:NERDTreeHijackNetrw=0 "makes plugin to show when 'vim .' command but this command turns it off
+
+"remaping for fzf files plugin. so \f
+noremap <leader>f :Files<CR>
+
+"remaping for git tracked fzf files plugin. \gf
+noremap <leader>gf :GFiles<CR>
+
+"remaping for fzf files plugin. \b
+noremap <leader>b :Buffers<CR>
+
+"remaping for ALENext
+nmap ]a :ALENextWrap<CR> 
+nmap [a :ALEPreviousWrap<CR> 
 
 syntax on
 
@@ -25,30 +39,35 @@ set mouse=a
 
 call plug#begin('~/.vim/plugged')
 
-"Plug 'sbdchd/neoformat'
 Plug 'dense-analysis/ale'
 
+" file search
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+" This uses silver_searcher with ack. apt-get install silversearcher-ag 
+Plug 'mileszs/ack.vim'
+
+" commenting
+Plug 'tpope/vim-commentary'
+
+" themes
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-
 Plug 'sainnhe/everforest'
 Plug 'morhetz/gruvbox'
-Plug 'embark-theme/vim'
-Plug 'adrian5/oceanic-next-vim'
-Plug 'robre/maracuja.vim'
-Plug 'sickill/vim-monokai'
-Plug 'YorickPeterse/vim-paper'
-Plug 'joshdick/onedark.vim'
+Plug 'sonph/onehalf'
 
 Plug 'ap/vim-css-color'
 
+" code formatting
 Plug 'leafgarland/typescript-vim'
-
 Plug 'peitalin/vim-jsx-typescript'
-
 Plug 'maxmellon/vim-jsx-pretty'
 
+" git
 Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 let g:coc_global_extensions = [
@@ -58,19 +77,16 @@ let g:coc_global_extensions = [
 call plug#end()
 
 set background=dark
-"colorscheme everforest
-"colorscheme monokai
-"colorscheme paper
-"colorscheme onedark
-colorscheme gruvbox
-"colorscheme maracuja
-"colorscheme oceanicnext
 
-"let g:airline_theme='gruvbox'
-"let g:airline_theme='maracuja'
-let g:airline_theme='oceanicnext'
-"let g:airline_theme='everforest'
-"let g:airline_theme='embark'
+colorscheme gruvbox
+let g:airline_theme='gruvbox'
+
+" colorscheme everforest
+" let g:airline_theme='everforest'
+
+" colorscheme onehalflight
+" let g:airline_theme='onehalflight'
+
 let g:airline#extensions#ale#enabled = 1
 
 let g:ale_fixers = {
@@ -83,6 +99,8 @@ let g:ale_linters = {}
 let g:ale_linters.typescript = ['eslint', 'tsserver', 'prettier']
 let g:ale_lint_on_save=1
 let g:ale_fix_on_save=1
+
+let g:ackprg = 'ag --nogroup --nocolor --column'
 
 
 "let g:neoformat_try_node_exe=1
